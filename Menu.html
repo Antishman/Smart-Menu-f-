@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Food & Drink Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            overflow: hidden; /* Prevent body scrollbar */
+        }
+
+        .book {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page {
+            width: 90%;
+            height: 90%;
+            background: #2b2b2b;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 2px solid #d4af37;
+            overflow-y: auto; /* Add scrollbar for each page */
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            transition: transform 1s ease, opacity 0.5s ease;
+        }
+
+        /* Hide inactive page */
+        .page.hidden {
+            display: none;
+        }
+
+        /* Sliding animation for entering and exiting */
+        .page.enter {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        .page.enter-active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .page.exit {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .page.exit-active {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        /* Custom scrollbar styling */
+        .page::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .page::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .page::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        .page::-webkit-scrollbar-thumb:hover {
+            background: #b8972e;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            color: #d4af37;
+            margin-bottom: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: #d4af37;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, background 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .menu-item:hover {
+            transform: translateX(10px);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .menu-item span {
+            color: #fff;
+        }
+
+        .menu-item .price {
+            color: #d4af37;
+        }
+
+        .nav-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .nav-buttons button {
+            padding: 10px 20px;
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .nav-buttons button:hover {
+            background: #b8972e;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="book">
+        <div class="page" id="food-menu">
+            <h1 class="fade-in">Food Menu</h1>
+            <div class="section">
+                <h2>Wrap & Sandwich</h2>
+                <div class="menu-item"><span>Vegetable Shawarma</span><span class="price">200</span></div>
+                <div class="menu-item"><span>Chicken Shawarma</span><span class="price">390</span></div>
+                <div class="menu-item"><span>Crispy Wrap</span><span class="price">390</span></div>
+                <div class="menu-item"><span>Zinger Wrap</span><span class="price">400</span></div>
+                <div class="menu-item"><span>Fasting Boritto</span><span class="price">250</span></div>
+            </div>
+            <div class="section">
+                <h2>Burgers</h2>
+                <div class="menu-item"><span>Classic Burger</span><span class="price">300</span></div>
+                <div class="menu-item"><span>Cheese Burger</span><span class="price">350</span></div>
+                <div class="menu-item"><span>Double Burger</span><span class="price">400</span></div>
+                <div class="menu-item"><span>Chicken Burger</span><span class="price">350</span></div>
+                <div class="menu-item"><span>Flora Burger</span><span class="price">450</span></div>
+            </div>
+            <div class="section">
+                <h2>Pizza</h2>
+                <div class="menu-item"><span>Margereta Pizza</span><span class="price">400</span></div>
+                <div class="menu-item"><span>Vegetables Pizza</span><span class="price">400</span></div>
+                <div class="menu-item"><span>Chicken Pizza</span><span class="price">450</span></div>
+                <div class="menu-item"><span>Beef Pizza</span><span class="price">450</span></div>
+                <div class="menu-item"><span>Tuna Pizza</span><span class="price">450</span></div>
+                <div class="menu-item"><span>Flora Special Pizza</span><span class="price">550</span></div>
+            </div>
+            <div class="section">
+                <h2>Grills</h2>
+                <div class="menu-item"><span>Chicken Escalope</span><span class="price">550</span></div>
+                <div class="menu-item"><span>Chicken Breast</span><span class="price">670</span></div>
+                <div class="menu-item"><span>Chicken Wings</span><span class="price">670</span></div>
+                <div class="menu-item"><span>Charcoal Grill Chicken</span><span class="price">780</span></div>
+                <div class="menu-item"><span>Flora Special Grill</span><span class="price">1550</span></div>
+            </div>
+            <div class="section">
+                <h2>Pasta</h2>
+                <div class="menu-item"><span>Vegetable Pasta</span><span class="price">250</span></div>
+                <div class="menu-item"><span>Tomato Pasta</span><span class="price">250</span></div>
+                <div class="menu-item"><span>Beef Pasta</span><span class="price">320</span></div>
+                <div class="menu-item"><span>Rice with Vegetable</span><span class="price">250</span></div>
+            </div>
+            <div class="section">
+                <h2>Salad</h2>
+                <div class="menu-item"><span>Fresh Salad</span><span class="price">210</span></div>
+                <div class="menu-item"><span>Fruit Salad</span><span class="price">230</span></div>
+                <div class="menu-item"><span>Chips</span><span class="price">200</span></div>
+                <div class="menu-item"><span>Tuna Salad</span><span class="price">320</span></div>
+                <div class="menu-item"><span>Chicken Salad</span><span class="price">300</span></div>
+            </div>
+            <div class="section">
+                <h2>Enjera</h2>
+                <div class="menu-item"><span>ጾም ስጋ (Fasting Meat)</span><span class="price">320</span></div>
+                <div class="menu-item"><span>ጾም ስጋ ልዩ (Fasting Meat Special)</span><span class="price">360</span></div>
+                <div class="menu-item"><span>ፍትፍት (Fitfit)</span><span class="price">220</span></div>
+                <div class="menu-item"><span>ጥብስ (Tibs)</span><span class="price">280</span></div>
+                <div class="menu-item"><span>የተለያዩ ጥብስ (Assorted Tibs)</span><span class="price">320</span></div>
+                <div class="menu-item"><span>ጥብስ ልዩ (Tibs Special)</span><span class="price">350</span></div>
+                <div class="menu-item"><span>ጥብስ ልዩ ልዩ (Tibs Extra Special)</span><span class="price">500</span></div>
+            </div>
+            <div class="section">
+                <h2>Breakfast</h2>
+                <div class="menu-item"><span>Special Chechebsa</span><span class="price">190</span></div>
+                <div class="menu-item"><span>Normal Chechebsa</span><span class="price">220</span></div>
+                <div class="menu-item"><span>Normal Foul</span><span class="price">190</span></div>
+                <div class="menu-item"><span>Special Foul</span><span class="price">240</span></div>
+                <div class="menu-item"><span>Healthy Breakfast</span><span class="price">280</span></div>
+            </div>
+        </div>
+        <div class="page hidden" id="drink-menu">
+            <h1 class="fade-in">Drink Menu</h1>
+            <div class="section">
+                <h2>Smoothie</h2>
+                <div class="menu-item"><span>Strawberry Smoothie</span><span class="price">220</span></div>
+                <div class="menu-item"><span>Banana Smoothie</span><span class="price">220</span></div>
+                <div class="menu-item"><span>Pineapple Smoothie</span><span class="price">220</span></div>
+                <div class="menu-item"><span>Flora Smoothie</span><span class="price">220</span></div>
+            </div>
+            <div class="section">
+                <h2>Juices</h2>
+                <div class="menu-item"><span>Orange</span><span class="price">170</span></div>
+                <div class="menu-item"><span>Avocado</span><span class="price">170</span></div>
+                <div class="menu-item"><span>Papaya</span><span class="price">170</span></div>
+                <div class="menu-item"><span>Pineapple</span><span class="price">170</span></div>
+                <div class="menu-item"><span>Watermelon</span><span class="price">170</span></div>
+                <div class="menu-item"><span>Mix Juice</span><span class="price">180</span></div>
+                <div class="menu-item"><span>Telba</span><span class="price">200</span></div>
+                <div class="menu-item"><span>Papaya and Telba</span><span class="price">200</span></div>
+            </div>
+            <div class="section">
+                <h2>Mojito</h2>
+                <div class="menu-item"><span>Strawberry Mojito</span><span class="price">170</span></div>
+                <div class="menu-item"><span>Cinnamon Mojito</span><span class="price">170</span></div>
+                <div class="menu-item"><span>Orange Mojito</span><span class="price">170</span></div>
+                <div class="menu-item"><span>Green Land Mojito</span><span class="price">170</span></div>
+            </div>
+            <div class="section">
+                <h2>Hot Drinks</h2>
+                <div class="menu-item"><span>Steam Coffee</span><span class="price">50</span></div>
+                <div class="menu-item"><span>Tea</span><span class="price">45</span></div>
+                <div class="menu-item"><span>Qeshir</span><span class="price">50</span></div>
+                <div class="menu-item"><span>Green Tea</span><span class="price">50</span></div>
+                <div class="menu-item"><span>Moringa Tea</span><span class="price">50</span></div>
+                <div class="menu-item"><span>Cinnamon Tea</span><span class="price">50</span></div>
+                <div class="menu-item"><span>Spriss</span><span class="price">60</span></div>
+                <div class="menu-item"><span>Coffee with Milk</span><span class="price">60</span></div>
+            </div>
+            <div class="section">
+                <h2>Soft Drinks</h2>
+                <div class="menu-item"><span>Soft Drinks</span><span class="price">60</span></div>
+                <div class="menu-item"><span>Ambo Mineral Water</span><span class="price">70</span></div>
+                <div class="menu-item"><span>Ambo Flavor Water</span><span class="price">90</span></div>
+                <div class="menu-item"><span>Bottle Water 0.5L</span><span class="price">40</span></div>
+                <div class="menu-item"><span>Bottle Water 1L</span><span class="price">70</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button id="food-btn" onclick="showFoodMenu()">Food Menu</button>
+        <button id="drink-btn" onclick="showDrinkMenu()">Drink Menu</button>
+    </div>
+
+    <script>
+        const foodMenu = document.getElementById('food-menu');
+        const drinkMenu = document.getElementById('drink-menu');
+        const foodBtn = document.getElementById('food-btn');
+        const drinkBtn = document.getElementById('drink-btn');
+        let currentMenu = foodMenu; // Track the currently visible menu
+
+        function showFoodMenu() {
+            if (currentMenu === foodMenu) return; // If already on Food Menu, do nothing
+
+            // Exit animation for the current menu (Drink Menu)
+            currentMenu.classList.add('exit');
+            currentMenu.classList.add('exit-active');
+
+            // After the exit animation completes, hide the current menu and show the Food Menu
+            setTimeout(() => {
+                currentMenu.classList.add('hidden');
+                currentMenu.classList.remove('exit', 'exit-active', 'enter', 'enter-active'); // Reset animation classes
+
+                // Show Food Menu with enter animation
+                foodMenu.classList.remove('hidden');
+                foodMenu.classList.add('enter');
+                foodMenu.classList.add('enter-active');
+
+                // Update the current menu
+                currentMenu = foodMenu;
+
+                // Update button styles
+                foodBtn.style.background = '#d4af37';
+                drinkBtn.style.background = '#b8972e';
+            }, 500); // Match the opacity transition duration (0.5s)
+        }
+
+        function showDrinkMenu() {
+            if (currentMenu === drinkMenu) return; // If already on Drink Menu, do nothing
+
+            // Exit animation for the current menu (Food Menu)
+            currentMenu.classList.add('exit');
+            currentMenu.classList.add('exit-active');
+
+            // After the exit animation completes, hide the current menu and show the Drink Menu
+            setTimeout(() => {
+                currentMenu.classList.add('hidden');
+                currentMenu.classList.remove('exit', 'exit-active', 'enter', 'enter-active'); // Reset animation classes
+
+                // Show Drink Menu with enter animation
+                drinkMenu.classList.remove('hidden');
+                drinkMenu.classList.add('enter');
+                drinkMenu.classList.add('enter-active');
+
+                // Update the current menu
+                currentMenu = drinkMenu;
+
+                // Update button styles
+                foodBtn.style.background = '#b8972e';
+                drinkBtn.style.background = '#d4af37';
+            }, 500); // Match the opacity transition duration (0.5s)
+        }
+
+        // Set initial state
+        showFoodMenu();
+    </script>
+</body>
+</html>
